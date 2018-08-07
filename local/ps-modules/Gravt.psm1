@@ -58,8 +58,6 @@ function Install-GravtDependencies {
 
     Write-Host "***** Installing dependencies *****`n" -ForegroundColor Cyan
 
-    $installedPackages = choco list --localonly
-
     InstallOrUpdateChocoPackage "virtualbox"
     InstallOrUpdateChocoPackage "vagrant"
     InstallOrUpdateChocoPackage "curl"
@@ -122,4 +120,20 @@ function Reset-GravtMongoDb {
     Pop-Location
 }
 
-Export-ModuleMember -Function Install-GravtChocolatey, Install-GravtDependencies, Start-GravtServices, Stop-GravtServices, Reset-GravtServices
+function Get-GravtHelp {
+    Write-Host "`nLocal Development Cmdlets" -ForegroundColor Cyan
+    Write-Host "    - Start-GravtServices" -ForegroundColor Yellow
+    Write-Host "        Start mongo DB and the event store"
+    Write-Host "    - Start-GravtMongoDb" -ForegroundColor Yellow
+    Write-Host "        Launch Vagrant Setup to start MongoDb localhost:27017"
+    Write-Host "    - Start-GravtEventStore" -ForegroundColor Yellow
+    Write-Host "        Launch Vagrant Setup to start EventStore (http://localhost:2113 / localhost:1113)"
+    Write-Host "    - Reset-GravtServices" -ForegroundColor Yellow
+    Write-Host "        Reset data of EventStore and MongoDb"
+    Write-Host "    - Reset-GravtEventStore" -ForegroundColor Yellow
+    Write-Host "        Reset all data in your Local EventStore Database"
+    Write-Host "    - Reset-GravtMongoDb" -ForegroundColor Yellow
+    Write-Host "        Reset all data in your Local MongoDb Database"
+}
+
+Export-ModuleMember -Function Get-GravtHelp, Install-GravtChocolatey, Install-GravtDependencies, Start-GravtServices, Stop-GravtServices, Reset-GravtServices
