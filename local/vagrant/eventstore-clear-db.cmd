@@ -1,1 +1,0 @@
-vagrant ssh eventstore -- -t 'sudo sh /vagrant/setup/eventstore/clear-db.sh'

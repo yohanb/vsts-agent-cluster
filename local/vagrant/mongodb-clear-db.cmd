@@ -1,1 +1,0 @@
-vagrant ssh mongodb -- -t 'sudo sh /vagrant/setup/mongodb/clear-db.sh'
