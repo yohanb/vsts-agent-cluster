@@ -1,0 +1,1 @@
+packer validate -var-file="packer_vars.json" packer.json

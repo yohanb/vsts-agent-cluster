@@ -1,0 +1,9 @@
+---
+- src: geerlingguy.nodejs
+  name: nodejs
+
+- src: ocha.dotnet-core
+  name: dotnet
+
+- src: geerlingguy.git
+  name: git

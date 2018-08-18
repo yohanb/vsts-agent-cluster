@@ -1,0 +1,22 @@
+---
+  - name: Install requirements
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+      - libunwind8
+      - libcurl3
+
+  - file:
+      path: /a1
+      owner: root
+      group: root
+      recurse: yes
+      state: directory
+
+  - name: Install agent
+    unarchive:
+      src: https://vstsagentpackage.azureedge.net/agent/2.136.1/vsts-agent-linux-x64-2.136.1.tar.gz
+      dest: /a1
+      remote_src: yes

@@ -1,0 +1,7 @@
+---
+# Set the version of Node.js to install ("0.12", "4.x", "5.x", "6.x", "8.x", "9.x").
+# Version numbers from Nodesource: https://github.com/nodesource/distributions
+nodejs_version: "10.x"
+
+# https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites?tabs=netcore2x
+dotnet_package: "dotnet-sdk-2.1"
