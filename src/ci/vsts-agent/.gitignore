@@ -1,3 +1,5 @@
 .vagrant/
 .terraform/
 playbook.retry
+.terraform.tfstate
+.terraform.tfstate.backup
