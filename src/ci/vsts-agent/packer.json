@@ -14,9 +14,9 @@
       "os_type": "Linux",
       "image_publisher": "Canonical",
       "image_offer": "UbuntuServer",
-      "image_sku": "14.04.4-LTS",
+      "image_sku": "16.04-LTS",
 
-      "location": "East US",
+      "location": "Canada East",
       "vm_size": "Standard_A2"
     }
   ],
