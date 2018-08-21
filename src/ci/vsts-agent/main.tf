@@ -2,7 +2,6 @@ provider "azurerm" {
   subscription_id = "${var.subscription_id}"
 }
 
-# Locate the existing custom/golden image
 data "azurerm_image" "search" {
   name                = "${var.image_name}"
   resource_group_name = "${var.image_resource_group}"
@@ -12,13 +11,11 @@ output "image_id" {
   value = "${data.azurerm_image.search.id}"
 }
 
-# Create a Resource Group for the new Virtual Machine.
 resource "azurerm_resource_group" "main" {
   name     = "${var.resource_group}"
   location = "canadaeast"
 }
 
-# Create a Virtual Network within the Resource Group
 resource "azurerm_virtual_network" "main" {
   name                = "${var.vm_name}-network"
   address_space       = ["172.16.0.0/16"]
@@ -26,7 +23,6 @@ resource "azurerm_virtual_network" "main" {
   location            = "${azurerm_resource_group.main.location}"
 }
 
-# Create a Subnet within the Virtual Network
 resource "azurerm_subnet" "internal" {
   name                 = "internal"
   virtual_network_name = "${azurerm_virtual_network.main.name}"
@@ -34,7 +30,6 @@ resource "azurerm_subnet" "internal" {
   address_prefix       = "172.16.1.0/24"
 }
 
-# Create a Public IP for the Virtual Machine
 resource "azurerm_public_ip" "main" {
   name                         = "${var.vm_name}-pip--${count.index}"
   location                     = "${azurerm_resource_group.main.location}"
@@ -43,7 +38,6 @@ resource "azurerm_public_ip" "main" {
   count                        = "${local.instance_count}"
 }
 
-# Create a Network Security Group with some rules
 resource "azurerm_network_security_group" "main" {
   name                = "${var.vm_name}-nsg"
   location            = "${azurerm_resource_group.main.location}"
@@ -63,7 +57,6 @@ resource "azurerm_network_security_group" "main" {
   }
 }
 
-# Create a network interface for VMs and attach the PIP and the NSG
 resource "azurerm_network_interface" "main" {
   name                      = "${var.vm_name}-nic-${count.index}"
   location                  = "${azurerm_resource_group.main.location}"
@@ -79,7 +72,6 @@ resource "azurerm_network_interface" "main" {
   }
 }
 
-# Create a new Virtual Machine based on the Golden Image
 resource "azurerm_virtual_machine" "vm" {
   name                             = "${var.vm_name}-${count.index}"
   location                         = "${azurerm_resource_group.main.location}"
@@ -112,14 +104,14 @@ resource "azurerm_virtual_machine" "vm" {
 
   os_profile {
     computer_name  = "${var.vm_name}-${count.index}"
-    admin_username = "${var.admin_username}"
+    admin_username = "${var.vm_admin}"
   }
 
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
       key_data  = "${file("~/.ssh/id_rsa.pub")}"
-      path      = "/home/${var.admin_username}/.ssh/authorized_keys"
+      path      = "/home/${var.vm_admin}/.ssh/authorized_keys"
     }
   }
 }
@@ -127,7 +119,7 @@ resource "azurerm_virtual_machine" "vm" {
 data "template_file" "agent_command" {
   template = "$${config} && $${install_svc} && $${start_svc}"
   vars {
-    config = "/a1/bin/Agent.Listener configure --unattended --url https://${var.vsts_account_name}.visualstudio.com --auth pat --token ${var.vsts_pat} --pool default --agent $(hostname) --acceptTeeEula"
+    config = "/a1/bin/Agent.Listener configure --unattended --url https://${var.vsts_account_name}.visualstudio.com --auth pat --token ${var.vsts_pat} --pool ${var.vsts_agent_pool} --agent $(hostname) --replace --acceptTeeEula"
     install_svc = "/a1/svc.sh install"
     start_svc = "/a1/svc.sh start"
   }

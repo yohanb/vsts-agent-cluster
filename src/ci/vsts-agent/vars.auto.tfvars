@@ -2,12 +2,11 @@
 subscription_id = "6edfbbb4-cc4e-4bba-9a8f-361b1696bf0e"
 
 # Virtual machines
-vm_resource_group = "gravt-ci-agents"
-vm_name = "vsts-agent-linux"
-
+resource_group = "vsts-agent-vms"
+vm_name = "agent-linux"
 image_name = "vsts-agent-linux"
-image_resource_group = "gravt-ci-images"
+image_resource_group = "vsts-agent-images"
 location = "Canada East"
-admin_username = "ybelval"
 
+# VSTS
 vsts_account_name = "yohandev"
