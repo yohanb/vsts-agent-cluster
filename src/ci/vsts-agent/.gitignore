@@ -2,5 +2,6 @@
 .terraform/
 *.retry
 *.tfvars
+packer_vars.json
 terraform.tfstate
 terraform.tfstate.backup
