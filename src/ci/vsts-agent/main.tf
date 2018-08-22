@@ -13,7 +13,7 @@ output "image_id" {
 
 resource "azurerm_resource_group" "main" {
   name     = "${var.vm_resource_group}"
-  location = "canadaeast"
+  location = "${var.location}"
 }
 
 resource "azurerm_virtual_network" "main" {
