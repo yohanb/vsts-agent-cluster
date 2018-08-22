@@ -27,6 +27,10 @@ variable "vm_size" {
   default     = "Standard_B2s"
 }
 
+variable "vm_instance_count" {
+  description = "Virtual Machine instance count."
+}
+
 variable "vm_admin" {
   description = "The username associated with the local administrator account on the VM (defaults to admin)."
   default = "admin"
