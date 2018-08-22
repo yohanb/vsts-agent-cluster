@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: all
   connection: local
   sudo: yes
   vars_files:
