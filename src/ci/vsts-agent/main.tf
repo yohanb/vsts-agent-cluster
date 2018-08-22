@@ -12,7 +12,7 @@ output "image_id" {
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = "${var.resource_group}"
+  name     = "${var.vm_resource_group}"
   location = "canadaeast"
 }
 
