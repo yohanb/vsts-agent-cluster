@@ -35,7 +35,7 @@ resource "azurerm_public_ip" "main" {
   location                     = "${azurerm_resource_group.main.location}"
   resource_group_name          = "${azurerm_resource_group.main.name}"
   public_ip_address_allocation = "dynamic"
-  count                        = "${local.instance_count}"
+  count                        = "${var.vm_instance_count}"
 }
 
 resource "azurerm_network_security_group" "main" {
@@ -62,7 +62,7 @@ resource "azurerm_network_interface" "main" {
   location                  = "${azurerm_resource_group.main.location}"
   resource_group_name       = "${azurerm_resource_group.main.name}"
   network_security_group_id = "${azurerm_network_security_group.main.id}"
-  count                     = "${local.instance_count}"
+  count                     = "${var.vm_instance_count}"
 
   ip_configuration {
     name                          = "primary"
@@ -77,10 +77,10 @@ resource "azurerm_virtual_machine" "vm" {
   location                         = "${azurerm_resource_group.main.location}"
   resource_group_name              = "${azurerm_resource_group.main.name}"
   network_interface_ids            = ["${element(azurerm_network_interface.main.*.id, count.index)}"]
-  vm_size                          = "Standard_B2s"
+  vm_size                          = "${var.vm_size}"
   delete_os_disk_on_termination    = true
   delete_data_disks_on_termination = true
-  count                            = "${local.instance_count}"
+  count                            = "${var.vm_instance_count}"
 
   storage_image_reference {
     id = "${data.azurerm_image.search.id}"
@@ -133,7 +133,7 @@ resource "azurerm_virtual_machine_extension" "agent_script" {
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.0"
-  count                = "${local.instance_count}"
+  count                = "${var.vm_instance_count}"
 
   settings = <<SETTINGS
     {

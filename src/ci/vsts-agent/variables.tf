@@ -22,6 +22,11 @@ variable "vm_name" {
   description = "Virtual machine name. (a dash with the number of the VM will be appended to the name.  ex: agent-0, agent-1, etc.)"
 }
 
+variable "vm_size" {
+  description = "Virtual Machine size"
+  default     = "Standard_B2s"
+}
+
 variable "vm_admin" {
   description = "The username associated with the local administrator account on the VM (defaults to admin)."
   default = "admin"
