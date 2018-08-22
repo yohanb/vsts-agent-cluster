@@ -33,7 +33,7 @@ variable "vm_instance_count" {
 
 variable "vm_admin" {
   description = "The username associated with the local administrator account on the VM (defaults to admin)."
-  default = "admin"
+  default = "agent_admin"
 }
 
 variable "vsts_account_name" {
