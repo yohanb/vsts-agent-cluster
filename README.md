@@ -25,8 +25,8 @@ vsts_pat                = "***"
 
 # How To Get Going
 ```
-packer build -var-file=packer_vars.json packer.json
 az login
+packer build -var-file=packer_vars.json packer.json
 terraform init
 terraform apply
 ```
