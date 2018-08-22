@@ -1,3 +1,5 @@
+**See [blog post for more information](https://medium.com/@yohan.belval/provisioning-a-vsts-agent-cluster-in-azure-with-ansible-packer-and-terraform-d06c23deef71)**
+
 # Packer Configuration
 Example _packer_vars.json_ file:
 ```
@@ -33,5 +35,3 @@ terraform apply
 
 # Try It Out With Vagrant
 `vagrant up`
-
-**See [blog post for more information](https://medium.com/@yohan.belval/provisioning-a-vsts-agent-cluster-in-azure-with-ansible-packer-and-terraform-d06c23deef71)**
