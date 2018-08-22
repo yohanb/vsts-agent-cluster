@@ -119,7 +119,7 @@ resource "azurerm_virtual_machine" "vm" {
 data "template_file" "agent_command" {
   template = "$${config} && $${install_svc} && $${start_svc}"
   vars {
-    config = "/a1/bin/Agent.Listener configure --unattended --url https://${var.vsts_account_name}.visualstudio.com --auth pat --token ${var.vsts_pat} --pool ${var.vsts_agent_pool} --agent $(hostname) --replace --acceptTeeEula"
+    config = "/a1/bin/Agent.Listener configure --unattended --url https://${var.vsts_account_name}.visualstudio.com --auth pat --token ${var.vsts_pat} --pool ${var.vsts_agent_pool} --agent $(hostname) --acceptTeeEula"
     install_svc = "/a1/svc.sh install"
     start_svc = "/a1/svc.sh start"
   }
